@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" width="400" height="50" verticalScrollPolicy="off">
+
+<mx:Script>
+	<![CDATA[
+		import com.yxz97.fno.model.Twitted;
+	
+		[Embed(source="assets/default_profile_0_bigger.png")]
+	    [Bindable]
+	    public var img:Class;
+	
+		public override function set data(value:Object):void{
+			if (value is Twitted){
+				var twitted:Twitted= value as Twitted;
+				if (twitted.profile_image_url!=null)
+					imageUserProfile.load(twitted.profile_image_url);
+				else
+					imageUserProfile.source=img;
+				textArea.text=twitted.text;
+			}
+		}  
+		
+	]]>
+</mx:Script>
+
+<mx:Image id="imageUserProfile" x="0" y="0"  width="50" height="50"/>
+<mx:TextArea id="textArea" x="58" y="0"  height="50" width="342" editable="false"/>
+</mx:Canvas>

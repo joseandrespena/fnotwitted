@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" creationComplete="onCreationComplete();">
+<mx:Script>
+	<![CDATA[
+		import com.yxz97.fno.model.Twitted;
+		import com.yxz97.fno.util.UpdateTimerManager;
+		import mx.collections.ArrayCollection;
+		
+		import com.adobe.serialization.json.JSON;
+		import mx.rpc.http.HTTPService;
+		import mx.rpc.events.FaultEvent;
+		import mx.rpc.events.ResultEvent;
+		
+		private var timeManager:UpdateTimerManager;
+		
+		private function onCreationComplete():void{
+			timeManager = new UpdateTimerManager();
+			timeManager.addCallback(doReadFno);						
+			timeManager.timeout = 2000;
+			timeManager.beginTimer();
+			timeManager.timeout = 60000;		
+		}
+		
+		private function doReadFno():void{
+			var url:String = "http://search.twitter.com/search.json?q="+encodeURIComponent("@ceoStevejobs");
+			
+			var httpService:HTTPService = new HTTPService();
+			httpService.url = url;
+			httpService.contentType = "application/json";
+			httpService.resultFormat = "text";
+			httpService.useProxy = false;
+			httpService.method = "GET";
+			httpService.addEventListener(ResultEvent.RESULT, success);
+			httpService.addEventListener(FaultEvent.FAULT, fault);
+			
+			httpService.send();
+		}
+			
+		private function success(event:ResultEvent):void{
+			var jsonData:Object = JSON.decode( event.result.toString() );
+			var data:ArrayCollection = new ArrayCollection();			
+			for each (var val:Object in jsonData.results){
+				var itm:Twitted = new Twitted();
+				itm.created_at=val.created_at;
+				itm.from_user=val.from_user;
+				itm.geo=val.geo;
+				itm.id=val.id;
+				itm.iso_language_code=val.iso_language_code;
+				itm.metadata=val.metadata;
+				itm.profile_image_url=val.profile_image_url;
+				itm.source=val.source;
+				itm.text=val.text;
+				itm.to_user=val.to_user;
+				itm.to_user_id=val.to_user_id;
+				data.addItem(itm);
+			}
+			
+			listTwetts.dataProvider = data;		
+		}
+		
+		private function fault(event:FaultEvent):void{
+			trace(event.fault);
+		}
+]]>
+</mx:Script>
+<mx:Style source="style/style.css" />
+<mx:List id="listTwetts" width="430" height="400" 
+	itemRenderer="com.yxz97.fno.view.twittedItemRender" styleName="twitter"/>
+	
+</mx:Application>

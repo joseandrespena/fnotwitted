@@ -1,0 +1,35 @@
+/* CSS file */
+/************************************** Vertical Scroll Style bar **************************************/
+.VScrollBar {
+    downArrowUpSkin: Embed(source="assets/VScrollBarAsset/downArrow.png");
+    downArrowOverSkin: Embed(source="assets/VScrollBarAsset/downArrow.png");
+    downArrowDownSkin: Embed(source="assets/VScrollBarAsset/downArrow.png");
+    upArrowUpSkin: Embed(source="assets/VScrollBarAsset/upArrow.png");
+    upArrowOverSkin: Embed(source="assets/VScrollBarAsset/upArrow.png");
+    upArrowDownSkin: Embed(source="assets/VScrollBarAsset/upArrow.png");
+    thumbDownSkin: 
+    	Embed(source="assets/VScrollBarAsset/thumb.png",
+        scaleGridLeft="7", scaleGridTop="5", 
+        scaleGridRight="8", scaleGridBottom="7");
+        
+    thumbUpSkin: 
+    	Embed(source="assets/VScrollBarAsset/thumb.png",
+        scaleGridLeft="7", scaleGridTop="5", 
+        scaleGridRight="8", scaleGridBottom="7");
+        
+    thumbOverSkin: 
+    	Embed(source="assets/VScrollBarAsset/thumb.png",
+        scaleGridLeft="7", scaleGridTop="5", 
+        scaleGridRight="8", scaleGridBottom="7");
+        
+    trackSkin: 
+    	Embed(source="assets/VScrollBarAsset/scrolltrack.png",
+        scaleGridLeft="7", scaleGridTop="4", 
+        scaleGridRight="8", scaleGridBottom="6" ); 
+} 
+/************************************** List Style RecognitionForm *************************************/
+List.twitter {
+	vertical-scroll-bar-style-name: VScrollBar;
+	background-color: #A4A4A5;
+	border-style: none;
+}
